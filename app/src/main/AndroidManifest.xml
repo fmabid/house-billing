@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Signup"></activity>
         <activity
-            android:label="Home"
-            android:name=".HomeActivity"></activity>
+            android:name=".HomeActivity"
+            android:label="Home" />
         <activity
             android:name=".MainActivity"
-            android:label="Sign In"></activity>
+            android:label="Sign In" />
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">

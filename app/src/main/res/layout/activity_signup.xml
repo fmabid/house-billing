@@ -27,23 +27,30 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
 
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPhonetic" />
+
+
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/input_container"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Login" />
+        android:text="signup" />
 
     <TextView
-        android:id="@+id/tv_signup"
+        android:id="@+id/tv_signin"
         android:gravity="center"
-        android:layout_below="@id/btn_login"
+        android:layout_below="@id/btn_signup"
         android:textColor="#ffffff"
-        android:text="Need a new account ? Sign up"
+        android:text="Already have an account ? Sign in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
