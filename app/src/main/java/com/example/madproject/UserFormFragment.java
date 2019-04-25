@@ -13,13 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-public class UserFormFragment extends Fragment {
+public class UserFormFragment extends Fragment implements View.OnClickListener {
     private Button btn_login;
     private EditText username;
     private EditText password;
+    private TextView textView;
 
     FormFragmentListener activityCommander;
+
+
 
     public interface FormFragmentListener{
         public void changeActivity(String username, String password);
@@ -42,8 +46,9 @@ public class UserFormFragment extends Fragment {
         View view = inflater.inflate(R.layout.user_form_fragment, container, false);
 
         btn_login = (Button) view.findViewById(R.id.btn_login);
-        username = (EditText) view.findViewById(R.id.et_username);
-        password = view.findViewById(R.id.et_password);
+        username = (EditText) view.findViewById(R.id.et_user_email);
+        password = view.findViewById(R.id.et_user_password);
+        textView = (TextView) view.findViewById(R.id.tv_signup);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +56,7 @@ public class UserFormFragment extends Fragment {
                 buttonClicked(v);
             }
         });
+
 
         return view;
     }
@@ -61,5 +67,10 @@ public class UserFormFragment extends Fragment {
             Intent startNextActivity = new Intent(UserFormFragment.this, HomeActivity.class);
             startActivity(startNextActivity);
         }*/
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

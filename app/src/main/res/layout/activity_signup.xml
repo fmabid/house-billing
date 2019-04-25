@@ -16,22 +16,16 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/et_username"
+            android:id="@+id/et_up_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/et_password"
+            android:id="@+id/et_up_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
-
-        <EditText
-            android:id="@+id/et_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPhonetic" />
 
 
     </LinearLayout>
@@ -49,7 +43,6 @@
         android:id="@+id/tv_signin"
         android:gravity="center"
         android:layout_below="@id/btn_signup"
-        android:textColor="#ffffff"
         android:text="Already have an account ? Sign in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
