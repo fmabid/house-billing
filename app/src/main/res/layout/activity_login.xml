@@ -17,13 +17,13 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/et_username"
+            android:id="@+id/et_user_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/et_password"
+            android:id="@+id/et_user_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
@@ -39,14 +39,15 @@
         android:layout_centerVertical="true"
         android:text="Login" />
 
-    <Button
-        android:id="@+id/btn_signup"
+    <TextView
+        android:id="@+id/tv_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="25dp"
+        android:gravity="center"
         android:layout_marginBottom="15dp"
         android:layout_centerVertical="true"
-        android:text="or create a new account" />
+        android:text="Need an account ? Sign up" />
 
 </RelativeLayout>

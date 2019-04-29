@@ -1,64 +1,128 @@
 package com.example.madproject;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class SignUpActivity extends AppCompatActivity {
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
-    Button btn_login;
-    Button btn_signup;
-    EditText username;
-    EditText password;
-    EditText name;
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private TextView tv_login;
+    private Button btn_signup;
+    private EditText useremail;
+    private EditText userpassword;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        this.setTitle("Sign up");
+        FirebaseApp.initializeApp(this);
+        mAuth = FirebaseAuth.getInstance();
 
-        btn_login = findViewById(R.id.btn_login);
+        tv_login = findViewById(R.id.tv_login);
         btn_signup = findViewById(R.id.btn_signup);
-        username = findViewById(R.id.et_username);
-        password = findViewById(R.id.et_password);
-        name = findViewById(R.id.et_woner_name);
+        useremail = findViewById(R.id.et_useremail);
+        userpassword = findViewById(R.id.et_password);
 
-        btn_signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String uname = username.getText().toString();
-                String pass = password.getText().toString();
-                String fullName = name.getText().toString();
+        tv_login.setOnClickListener(this);
+        btn_signup.setOnClickListener(this);
 
-                // Log.d("Clicked -->   ", uname + " " + pass);
-                if (sugnUp(uname, pass, fullName)) {
-                    Intent startNextActivity = new Intent(SignUpActivity.this, HomeActivity.class);
-                    startActivity(startNextActivity);
-                }
-            }
-        });
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startNextActivity = new Intent(SignUpActivity.this, LoginActivity.class);
-                startActivity(startNextActivity);
-            }
-        });
     }
 
 
-    /*  Sign up validation  */
-    public boolean sugnUp(String uname, String pass, String fullName) {
-        /*
-        *
-        *   Write here the query for signing up.
-        *
-        * */
 
-        return true;
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()){
+
+            case R.id.tv_login:
+
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+
+                break;
+
+            case R.id.btn_signup:
+                
+                userRegister();
+
+                break;
+
+        }
+
+    }
+
+    private void userRegister() {
+
+        String email = useremail.getText().toString().trim();
+        String password = userpassword.getText().toString().trim();
+
+        //checking the validity of the email
+        if(email.isEmpty()) {
+            useremail.setError("Enter an email address");
+            useremail.requestFocus();
+            return;
+        }
+
+        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            useremail.setError("Enter a valid email address");
+            useremail.requestFocus();
+            return;
+        }
+
+        //checking the validity of the password
+        if(password.isEmpty()) {
+            userpassword.setError("Enter a password");
+            userpassword.requestFocus();
+            return;
+        }
+        if(password.length() < 6) {
+            userpassword.setError("Minimum length is six");
+            userpassword.requestFocus();
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Toast.makeText(SignUpActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+
+                } else {
+
+                    if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                        Toast.makeText(SignUpActivity.this, "Already have an account.", Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        Toast.makeText(SignUpActivity.this, "Error: "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+
+            }
+        });
+
+
     }
 }
